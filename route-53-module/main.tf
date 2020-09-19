@@ -2,7 +2,7 @@
 # registration of the dnz domain is done before hand, as this step should not
 # be automated
 data "aws_route53_zone" "public" {
-  name         = var.blog_dns_zone
+  name         = var.blog_domain
   private_zone = false
 }
 
@@ -10,7 +10,7 @@ data "aws_route53_zone" "public" {
 # create a dns record for the blog
 resource "aws_route53_record" "blog" {
   zone_id = data.aws_route53_zone.public.zone_id
-  name    = "blog.${var.blog_dns_zone}"
+  name    = "${var.blog_subdomain}.${var.blog_domain}"
   type    = "A"
 
   alias {
@@ -22,10 +22,10 @@ resource "aws_route53_record" "blog" {
 
 # Create ssl certificate for load balancer
 resource "aws_acm_certificate" "blog" {
-  domain_name       = var.blog_dns_zone
+  domain_name       = var.blog_domain
   validation_method = "DNS"
   subject_alternative_names = [
-  "*.${var.blog_dns_zone}"]
+  "*.${var.blog_domain}"]
 }
 
 locals {

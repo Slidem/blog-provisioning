@@ -1,0 +1,10 @@
+/**
+* Lines bellow forces https schema on to resolve mixed content.
+* This makes wordpress not rewrite static content urls to http.
+*/
+if (strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
+    $_SERVER['HTTPS']='on';
+}
+
+define('WP_SITEURL', 'https://' . $_SERVER['HTTP_HOST'] . '/');
+define('WP_HOME', 'https://' . $_SERVER['HTTP_HOST'] . '/');

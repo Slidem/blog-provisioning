@@ -13,18 +13,17 @@ resource "aws_security_group" "blog_instances_security_group" {
 
   egress {
     cidr_blocks = [
-    "0.0.0.0/0"]
-    from_port = 0
-    protocol  = "-1"
-    to_port   = 0
+      "0.0.0.0/0"]
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
   }
 
   ingress {
-    cidr_blocks = [
-    local.known_ips_cidr_block]
-    from_port = 22
-    protocol  = "tcp"
-    to_port   = 22
+    cidr_blocks = [local.known_ips_cidr_block]
+    from_port   = 22
+    protocol    = "tcp"
+    to_port     = 22
   }
 
   tags = {
@@ -40,21 +39,19 @@ resource "aws_security_group" "blog_alb_security_group" {
 
   # allow outbound traffic to instances
   egress {
-    from_port = 80
-    protocol  = "tcp"
-    to_port   = 80
+    from_port       = 80
+    protocol        = "tcp"
+    to_port         = 80
     security_groups = [
-    aws_security_group.blog_instances_security_group.id]
+      aws_security_group.blog_instances_security_group.id]
   }
 
   # only accept connections on https
   ingress {
-//    cidr_blocks = ["0.0.0.0/0"]
-    cidr_blocks = [
-    local.known_ips_cidr_block]
-    from_port = 443
-    protocol  = "tcp"
-    to_port   = 443
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 443
+    protocol    = "tcp"
+    to_port     = 443
   }
 
   tags = {

@@ -1,4 +1,8 @@
-variable "blog_dns_zone" {
+variable "blog_domain" {
+  type = string
+}
+
+variable "blog_subdomain" {
   type = string
 }
 

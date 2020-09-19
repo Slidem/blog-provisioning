@@ -57,3 +57,28 @@ variable "subnet_index_per_availability_zones" {
 
   type = map(number)
 }
+
+variable "wp_url" {
+
+  type = string
+}
+
+variable "blog_title" {
+
+  default = "Alex Tech Space"
+}
+
+variable "wp_admin_username" {
+
+  type = string
+}
+
+variable "wp_admin_password" {
+
+  type = string
+}
+
+variable "wp_admin_email" {
+
+  type = string
+}
